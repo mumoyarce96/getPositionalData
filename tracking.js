@@ -19,7 +19,6 @@ img.onload = function(){
 	canvas.height = h;
 	context.drawImage(img, 0, 0, w, h);
 }
-console.log(canvas.height)
 img.src= source;
 
 class Circle {
@@ -89,8 +88,9 @@ var addPlayerBtn = document.getElementById("addPlayerBtn");
 var moveBtn = document.getElementById("moveBtn");
 var positionsBtn = document.getElementById("positionsBtn");
 var numberBtn = document.getElementById("numberBtn");
-var undoBtn = document.getElementById("undoBtn")
-var clearBtn = document.getElementById("clearBtn")
+var undoBtn = document.getElementById("undoBtn");
+var clearBtn = document.getElementById("clearBtn");
+var deleteBtn = document.getElementById("deleteBtn");
 var table = document.getElementById("data");
 
 for (var i = 0; i < teamBtns.length; i++) {
@@ -178,6 +178,17 @@ var teamNameChanger = function (e) {
 for (var i = 0; i < teamBtns.length; i++) {
   teamBtns[i].onclick = changeTeam;
 }
+
+
+deleteBtn.onclick = function () {
+  for (var i = 0; i < circles.length; i++){
+    if (circles[i].selected == 1){
+      circles.splice(i,1);
+      update();
+      break;
+    }
+  }
+};
 
 undoBtn.onclick = function () {
   if (circles.length>1){
@@ -294,7 +305,7 @@ document.getElementById(
 });
 
 function onDeleteRow(e){
-  if (!e.target.classList.contains('deleteBtn')){
+  if (!e.target.classList.contains('deleteRowBtn')){
   return;
   }
   const btn = e.target;
