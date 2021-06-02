@@ -19,7 +19,7 @@ body{
     margin-right: 10px;
 }
 
-#actions, #input-container, #team-container, #team-name-container{
+#actions, #actions2,  #input-container, #team-container, #team-name-container{
     width:35%;
     margin: 0 auto;
     text-align: center;

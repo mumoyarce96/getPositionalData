@@ -82,7 +82,6 @@ function update(){
 };
  
 createPlayer("Ball", "-", 150, 150);
-update();
 
 var teamBtns = document.getElementsByClassName("teamBtns");
 var actionBtns = document.getElementsByClassName("actionBtns");
@@ -353,3 +352,4 @@ filename = "positionalData.csv"
 }
 
 
+update();
