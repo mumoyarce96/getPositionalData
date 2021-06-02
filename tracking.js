@@ -18,7 +18,7 @@ img.onload = function(){
 	h = canvas.width/aspect;
 	canvas.height = h;
 	context.drawImage(img, 0, 0, w, h);
-}
+ }
 img.src= source;
 
 class Circle {
@@ -81,7 +81,7 @@ function update(){
 };
  
 createPlayer("Ball", "-", 150, 150);
-
+update();
 var teamBtns = document.getElementsByClassName("teamBtns");
 var actionBtns = document.getElementsByClassName("actionBtns");
 var addPlayerBtn = document.getElementById("addPlayerBtn");
@@ -223,11 +223,36 @@ function countPlayers(team){
   return players;
 }
 
+function getUsedNumbers(team){
+  var numbers = [];
+   for (var i = 0; i<circles.length; i++){
+    if (circles[i].team == team){
+      numbers.push(circles[i].number);
+    }
+  }  
+  numbers.sort((function(a, b){return a-b}));
+  return numbers
+}
+
+function getLowerAvailableNumber(team){
+  var availableNumber
+  var candidates = Array.from({length: 11}, (_, i) => i + 1);
+  var usedNumbers = getUsedNumbers(team);
+  for (var i = 0; i < candidates.length; i++){
+    candidate = candidates[i];
+    if (usedNumbers.includes(candidate) == false){
+      availableNumber = candidate;
+      break;
+    }
+  }
+  return availableNumber;
+}
+
 canvas.addEventListener("click", function (evt) {
   var mousePos = getMousePos(canvas, evt);
   if (addPlayerBtn.className == "actionBtns active"){
     if (countPlayers(selectedTeam) < 11){  
-      number = countPlayers(selectedTeam)+1;
+      number = getLowerAvailableNumber(selectedTeam);
       createPlayer(selectedTeam, number, mousePos.x, mousePos.y);
       update();
     }
@@ -365,4 +390,3 @@ filename = "positionalData.csv"
 }
 
 
-update();
