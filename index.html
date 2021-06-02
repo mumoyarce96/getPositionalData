@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tracking Tool (building..)</title>
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+</head>
+
+<body> 
+<div id="title-bar-container">
+    <div id="title">
+      <h3>Building..</h3>
+      <span>Add Description... </span>
+    </div>
+  </div>
+
+<div id="team-name-container">
+    Write team names:
+    <input type="text" id="add-team1-name" placeholder="Team 1 name" onkeypress="teamNameChanger(event)">
+    <input type="text" id="add-team2-name" placeholder="Team 2 name" onkeypress="teamNameChanger(event)">
+  </div> 
+
+<div id="team-container">
+    Select a team:
+    <button class="teamBtns" id="team1Btn">Team 1</button>
+    <button class="teamBtns" id="team2Btn">Team 2</button>
+  </div>
+<br>
+  <div id="actions">
+    Select an action:
+    <button class="actionBtns" id="addPlayerBtn">Add Player</button>
+    <button class="actionBtns" id="moveBtn">Move</button>
+     <button class="actionBtns" id="positionsBtn">Get Positions</button>
+  </div>
+
+  <div id="actions">
+    <button class="actionBtns" id="undoBtn">Undo</button>
+    <button class="actionBtns" id="clearBtn">Clear</button>
+    <button class="actionBtns" id="numberBtn">Change Number</button>
+  </div>
+
+<div>
+   <div id="table-button-container">
+    <div id="button-container">
+      <button id="clear">Clear Table</button>
+      <button id="export" onclick="exportTableToCSV('shotcoords.csv')">Export to CSV </button>
+    </div>
+     <br></br>
+    <div id="table-container">
+      <table id="data">
+        <thead>
+          <tr>
+            <th>Frame</th>
+            <th>Team</th>
+            <th>Player</th>
+            <th>X</th>
+            <th>Y</th>
+          </tr>
+        </thead>
+        <tbody id="data-body">
+
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+<div id="pitch-container">
+<canvas id="canvas"></canvas>
+</div>
+</div>
+
+<script src="tracking.js"></script>
+</body> 
+</html>
