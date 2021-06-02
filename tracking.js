@@ -215,9 +215,11 @@ function countPlayers(team){
 canvas.addEventListener("click", function (evt) {
   var mousePos = getMousePos(canvas, evt);
   if (addPlayerBtn.className == "actionBtns active"){
+    if (countPlayers(selectedTeam < 11)){  
     number = countPlayers(selectedTeam)+1;
     createPlayer(selectedTeam, number, mousePos.x, mousePos.y);
     update();
+    }
   };
 
 var rect = canvas.getBoundingClientRect();
