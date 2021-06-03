@@ -8,6 +8,8 @@ var source = 'https://i.imgur.com/tRl1Xux.png';
 var h = 0;
 var w = 0;
 var frame = 0;
+var frameList = [];
+var tableHead = '<thead><tr><th>Frame</th><th>Team</th><th>Player</th><th>X</th><th>Y</th><th></th></tr></thead><tbody id="data-body"></tbody>';
 
 let img = new Image();
 img.onload = function(){
@@ -92,6 +94,8 @@ var undoBtn = document.getElementById("undoBtn");
 var clearBtn = document.getElementById("clearBtn");
 var deleteBtn = document.getElementById("deleteBtn");
 var table = document.getElementById("data");
+var getFrameNumber = document.getElementById("getFrameNumber");
+var showFrame = document.getElementById("showFrame");
 
 for (var i = 0; i < teamBtns.length; i++) {
   teamBtns[i].addEventListener("click", function() {
@@ -307,22 +311,66 @@ function reScale(coord, value){
   }
 }; 
 
-positionsBtn.onclick = function(){
-  frame = frame + 1;
-  for (var i=0; i<circles.length; i++){
+
+function createTable(circles){
+   for (var i=0; i<circles.length; i++){
     var row = table.insertRow(-1);
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
-    cell1.innerHTML = frame;
+    var cell6 = row.insertCell(5);
+    cell1.innerHTML = circles[i].frame;
     cell2.innerHTML = circles[i].team;
     cell3.innerHTML = circles[i].number;
     cell4.innerHTML = Math.round(reScale("x",circles[i].x)*10)/10;
     cell5.innerHTML = Math.round(reScale("y",circles[i].y)*10)/10;
   }
 }
+
+function createFullTable(){
+  for (var i=0; i<frameList.length;i++){
+        createTable(JSON.parse(JSON.stringify(frameList[i])));
+  }
+};
+
+positionsBtn.onclick = function(){
+  frame = frame + 1;
+  getFrameNumber.max = frame;
+  for (var i=0; i<circles.length; i++){
+    circles[i].frame = frame;
+  }
+  var deepClone = JSON.parse(JSON.stringify(circles));
+  frameList.push(deepClone);
+  createTable(circles);
+}
+
+showFrame.onclick = function() {
+  if (this.className == "showFrame active"){
+    this.className = "showFrame";
+    if(getFrameNumber.value == activationFrame){
+      table.innerHTML = tableHead;
+      createFullTable();
+      let index = frameList.length-1;
+      circles = JSON.parse(JSON.stringify(frameList[index]));
+      update();
+    }
+
+  }else{
+    this.className = "showFrame active";
+    table.innerHTML = tableHead;
+    if (getFrameNumber.value != ""){
+        let index = getFrameNumber.value-1;
+        circles = JSON.parse(JSON.stringify(frameList[index]));
+        update();
+        createTable(circles);
+        activationFrame = circles[0].frame;
+    }else{
+        createFullTable();
+      }
+      } 
+}   
   
 document.getElementById(
     "table-container"
@@ -339,10 +387,12 @@ function onDeleteRow(e){
 
 table.addEventListener('click',onDeleteRow)
 
-document.getElementById("clear").onclick = function () {
-  document.getElementById("data").innerHTML =
-    '<thead><tr><th>Frame</th><th>Team</th><th>Player</th><th>X</th><th>Y</th></tr></thead><tbody id="data-body"></tbody>';
+document.getElementById("clearTable").onclick = function () {
+  table.innerHTML = tableHead;
   frame = 0;
+  getFrameNumber.max = 1;
+  getFrameNumber.value = "";
+  frameList = [];
 };
 
 function downloadCSV(csv, filename) {

@@ -25,18 +25,28 @@ body{
     text-align: center;
 }
 
+
+input[type=number]{
+    width: 30px;
+}
+
 .teamBtns, .playerBtns{
     cursor: pointer;
     margin-left: 20px;
     margin-top: 10px;    
 }
 
-.active, .teamBtns:hover, .actionBtns:hover {
+.showFrame{
+    cursor: pointer;   
+}
+
+
+.active {
   background-color: #666;
   color: white;
 }
 
-.teamBtns:hover, .actionBtns:hover {
+.teamBtns:hover, .actionBtns:hover{
   background-color: #bfbfbf;
   color: white;
 }
