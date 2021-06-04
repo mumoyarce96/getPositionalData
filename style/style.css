@@ -12,6 +12,7 @@ body{
 #title{
     width:100%;
     margin: 0 auto;
+    text-align: center;
 }
 
 #title>h3{
@@ -21,8 +22,14 @@ body{
 
 #actions, #actions2,  #input-container, #team-container, #team-name-container{
     width:35%;
-    margin: 0 auto;
-    text-align: center;
+    text-align: left;
+}
+
+#actions2{
+    width:35%;
+    text-align: left;
+    margin-left: 122px;
+    margin-top: 2px;
 }
 
 
@@ -51,13 +58,20 @@ input[type=number]{
   color: white;
 }
 
+#image-loader{
+    text-align: center;
+    margin-left: 305px;
+}
 
+#canvas2{
+    margin-left: 35px;
+}
 
 #table-button-container{
-    width:50%;
-    margin-top: 40px;
+    width:30%;
+    text-align: left;
     display:inline-block;
-    vertical-align: top;
+    margin-right: 455px;
 }
 
 #table-container{
@@ -79,9 +93,7 @@ input[type=number]{
 }
 
 #pitch-container{
-    width: 30%;
-    display:inline-block;
-    margin-top: 30px;  
+    display:inline-block; 
     float: left;
     vertical-align: top;
 }
@@ -109,93 +121,3 @@ td{
     text-align: center;
     padding = 10px 0;
 }
-
-@media only screen and (max-width: 1600px) {
-    #pitch-container{
-        margin-left:20%;
-    }
-    
-    #table-button-container{
-        width: 35%;
-        float: right;
-        display: inline-block;
-    }
-}
-
-
-@media only screen and (max-width: 1100px) {
-    #title{
-        width:80%;
-    }
-    #pitch-container{
-        margin-left: 10%;
-    }
-    
-    #table-button-container{
-        width:60%;
-    }
-    
-    #button-container{
-        width:30%;
-        float:left;
-        margin: 0 auto;
-    }
-    #table-container{
-        width:40%;
-    }
-    body{
-        font-size:14px;
-    }
-}
-
-@media only screen and (max-width: 900px) {
-    
-    #pitch-container{
-        display: block;
-        margin: 0;
-        padding-left: 25%;
-    }
-    #table-button-container{
-        display: block;
-        margin: 0 auto;
-        margin-top: 50px;
-    }
-
-@media only screen and (max-width: 800px) {
-    #title{
-        width:95%;
-    }
-    #event-container{
-        width: 95%;
-    }
-    #table-container{
-        width:100%;
-        margin: 0 auto;
-        height: 150px;
-    }
-    #button-container{
-        width:90%;
-        margin: 0 auto;
-        position: inherit;
-    }
-    
- 
-    #event-container{
-        margin:5px 5px;
-    }
-    
-    .event-button{
-        margin: 2px;
-    }
-    #input-container{
-        margin: 2px auto;
-        text-align: center;
-        width: 90%;
-    }
-    
-    
-    @media only screen and (max-width: 500px) {
-        #pitch-container{
-            margin-left: 0px;
-        }
-    }

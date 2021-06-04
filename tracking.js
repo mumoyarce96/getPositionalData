@@ -1,10 +1,14 @@
 canvas = document.getElementById('canvas');
 context = canvas.getContext('2d');
+c = document.getElementById('canvas2');
+ctx = canvas2.getContext('2d');
+
 canvas.width = 650;
-canvas.height = 600;
+canvas.height = 600
+c.width = 500;
 var selectedTeam = "Team 1"
 var eventType = "Shot";
-var source = 'https://i.imgur.com/tRl1Xux.png';
+var src = 'https://i.imgur.com/tRl1Xux.png';
 var h = 0;
 var w = 0;
 var frame = 0;
@@ -21,7 +25,58 @@ img.onload = function(){
 	canvas.height = h;
 	context.drawImage(img, 0, 0, w, h);
  }
-img.src= source;
+img.src= src;
+
+ctx.beginPath();
+ctx.lineWidth = "6";
+ctx.strokeStyle = "red";
+ctx.rect(5, 5, 290, 140);
+ctx.stroke();
+
+function loadImage() {
+        var input, file, fr;
+        if (typeof window.FileReader !== 'function') {
+            write("The file API isn't supported on this browser yet.");
+            return;
+        }
+        input = document.getElementById('imgfile');
+        if (!input) {
+            write("Um, couldn't find the imgfile element.");
+        }
+        else if (!input.files) {
+            write("This browser doesn't seem to support the `files` property of file inputs.");
+        }
+        else if (!input.files[0]) {
+            write("Please select a file before clicking 'Load'");
+        }
+        else {
+            file = input.files[0];
+            fr = new FileReader();
+            fr.onload = createImage;
+            fr.readAsDataURL(file);
+        }
+        function createImage() {
+            img2 = new Image();
+            img2.onload = imageLoaded;
+            source = fr.result;
+            img2.src = source;
+        }
+        function imageLoaded() {
+           let w = c.width
+           let nw = img2.width;
+           let nh = img2.height;
+           let aspect = nw/nh;
+           let h = c.width/aspect;
+           c.height = h;
+           ctx.drawImage(img2,0,0, w, h);
+        }
+
+        function write(msg) {
+            var p = document.createElement('p');
+            p.innerHTML = msg;
+            document.body.appendChild(p);
+        }
+    }
 
 class Circle {
   constructor(x, y, r, color) {
