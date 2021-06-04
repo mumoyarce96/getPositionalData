@@ -24,6 +24,7 @@ img.onload = function(){
 	h = canvas.width/aspect;
 	canvas.height = h;
 	context.drawImage(img, 0, 0, w, h);
+  update();
  }
 img.src= src;
 
