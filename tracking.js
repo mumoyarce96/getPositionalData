@@ -5,7 +5,7 @@ ctx = canvas2.getContext('2d');
 
 canvas.width = 650;
 canvas.height = 600
-c.width = 500;
+c.width = 600;
 var selectedTeam = "Team 1"
 var eventType = "Shot";
 var src = 'https://i.imgur.com/tRl1Xux.png';
@@ -129,7 +129,7 @@ function update(){
   for (var i=0; i<circles.length; i++){
     if (circles[i].team =="Ball"){
       ball = circles[i];
-      ball.r = 6;
+      ball.r = 4;
       context.fillStyle = "white";
       let canvasBall = new Circle(ball.x, ball.y, ball.r); 
       canvasBall.draw(context);
@@ -139,7 +139,6 @@ function update(){
 };
  
 createPlayer("Ball", "-", 150, 150);
-update();
 var teamBtns = document.getElementsByClassName("teamBtns");
 var actionBtns = document.getElementsByClassName("actionBtns");
 var addPlayerBtn = document.getElementById("addPlayerBtn");
