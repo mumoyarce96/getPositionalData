@@ -151,6 +151,7 @@ var deleteBtn = document.getElementById("deleteBtn");
 var table = document.getElementById("data");
 var getFrameNumber = document.getElementById("getFrameNumber");
 var showFrame = document.getElementById("showFrame");
+var editFrame = document.getElementById("editFrame");
 
 for (var i = 0; i < teamBtns.length; i++) {
   teamBtns[i].addEventListener("click", function() {
@@ -385,27 +386,37 @@ function createTable(circles){
 }
 
 function createFullTable(){
+  table.innerHTML = tableHead;
   for (var i=0; i<frameList.length;i++){
-        createTable(JSON.parse(JSON.stringify(frameList[i])));
+      createTable(JSON.parse(JSON.stringify(frameList[i])));
   }
 };
 
 positionsBtn.onclick = function(){
-  frame = frame + 1;
-  getFrameNumber.max = frame;
-  for (var i=0; i<circles.length; i++){
-    circles[i].frame = frame;
+  if (editFrame.className == "editFrame active"){
+    frame = circles[0].frame;
+    for (var i = 0; i<circles.length; i++){
+      circles[i].frame = frame;
+    }
+    frameList[frame-1] = JSON.parse(JSON.stringify(circles));
+    table.innerHTML = tableHead;
+    createTable(circles);
+  } else {
+    frame = frame + 1;
+    getFrameNumber.max = frame;
+    for (var i=0; i<circles.length; i++){
+      circles[i].frame = frame;
+    }
+    var deepClone = JSON.parse(JSON.stringify(circles));
+    frameList.push(deepClone);
+    createTable(circles);    
   }
-  var deepClone = JSON.parse(JSON.stringify(circles));
-  frameList.push(deepClone);
-  createTable(circles);
 }
 
 showFrame.onclick = function() {
   if (this.className == "showFrame active"){
     this.className = "showFrame";
     if(getFrameNumber.value == activationFrame){
-      table.innerHTML = tableHead;
       createFullTable();
       let index = frameList.length-1;
       circles = JSON.parse(JSON.stringify(frameList[index]));
@@ -426,7 +437,14 @@ showFrame.onclick = function() {
       }
       } 
 }   
-  
+
+editFrame.onclick = function(){
+  if (this.className == "editFrame active"){
+    this.className = "editFrame";
+  }else{
+    this.className = "editFrame active"
+  }
+}
 document.getElementById(
     "table-container"
   ).scrollTop = document.getElementById("table-container").scrollHeight;
