@@ -5,10 +5,11 @@ ctx = canvas2.getContext('2d');
 
 canvas.width = 650;
 canvas.height = 600
-c.width = 600;
+c.width = 650;
 var selectedTeam = "Team 1"
 var eventType = "Shot";
 var src = 'https://i.imgur.com/tRl1Xux.png';
+var src2 = 'Sample.png'
 var h = 0;
 var w = 0;
 var frame = 0;
@@ -26,7 +27,19 @@ img.onload = function(){
 	context.drawImage(img, 0, 0, w, h);
   update();
  }
-img.src= src;
+
+let img2 = new Image();
+img2.onload = function(){
+  let w = c.width;
+  let nw = img2.naturalWidth;
+  let nh = img2.naturalHeight;
+  let aspect = nw/nh;
+  let h = c.width/aspect;
+  c.height = h;
+  ctx.drawImage(img2, 0, 0, w, h);
+ }
+img.src = src;
+img2.src = src2;
 
 ctx.beginPath();
 ctx.lineWidth = "6";
