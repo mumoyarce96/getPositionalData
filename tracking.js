@@ -14,6 +14,8 @@ var h = 0;
 var w = 0;
 var frame = 0;
 var frameList = [];
+var selectedCircle = null;
+var selectedPitch = document.getElementById("selectedPitch");
 var tableHead = '<thead><tr><th>Frame</th><th>Team</th><th>Player</th><th>X</th><th>Y</th><th></th></tr></thead><tbody id="data-body"></tbody>';
 
 let img = new Image();
@@ -28,6 +30,27 @@ img.onload = function(){
   update();
  }
 
+function loadCanvas1(){
+  if(selectedPitch.value == "fullPitch"){
+    canvas.width = 600;
+    img.src = src; 
+  
+  }else if (selectedPitch.value == "leftBox"){
+    canvas.width = 300;
+    img.src = "LeftBox.png"
+  }else if (selectedPitch.value == "rightBox"){
+    canvas.width = 300;
+    img.src = "RightBox.png"
+  }
+}
+
+loadCanvas1();
+
+selectedPitch.onchange = function(){
+  loadCanvas1();
+}
+
+
 let img2 = new Image();
 img2.onload = function(){
   let w = c.width;
@@ -38,7 +61,7 @@ img2.onload = function(){
   c.height = h;
   ctx.drawImage(img2, 0, 0, w, h);
  }
-img.src = src;
+
 img2.src = src2;
 
 ctx.beginPath();
@@ -121,7 +144,7 @@ function update(){
   context.drawImage(img, 0, 0,w, h);
   for(var i=0; i<circles.length; i++){
     if (circles[i].team != "Ball"){
-      context.fillStyle = "black";
+      context.fillStyle = "#05d8f0";
       if (circles[i].team == document.getElementById("team2Btn").innerText){
         context.fillStyle = "red";
       }   
@@ -151,7 +174,7 @@ function update(){
   }
 };
  
-createPlayer("Ball", "-", 150, 150);
+createPlayer("Ball", "", 150, 150);
 var teamBtns = document.getElementsByClassName("teamBtns");
 var actionBtns = document.getElementsByClassName("actionBtns");
 var addPlayerBtn = document.getElementById("addPlayerBtn");
@@ -163,8 +186,10 @@ var clearBtn = document.getElementById("clearBtn");
 var deleteBtn = document.getElementById("deleteBtn");
 var table = document.getElementById("data");
 var getFrameNumber = document.getElementById("getFrameNumber");
-var showFrame = document.getElementById("showFrame");
-var editFrame = document.getElementById("editFrame");
+var showFrameBtn = document.getElementById("showFrameBtn");
+var editFrameBtn = document.getElementById("editFrameBtn");
+var changeNumberBtn = document.getElementById("changeNumberBtn");
+var getNewNumber = document.getElementById("getNewNumber");
 
 for (var i = 0; i < teamBtns.length; i++) {
   teamBtns[i].addEventListener("click", function() {
@@ -247,11 +272,9 @@ var teamNameChanger = function (e) {
   }
 };
 
-
 for (var i = 0; i < teamBtns.length; i++) {
   teamBtns[i].onclick = changeTeam;
 }
-
 
 deleteBtn.onclick = function () {
   for (var i = 0; i < circles.length; i++){
@@ -263,6 +286,27 @@ deleteBtn.onclick = function () {
   }
 };
 
+changeNumberBtn.onclick = function(){
+  if(selectedCircle && getNewNumber.value != ""){
+    for(var i=0; i<circles.length; i++){
+      if(circles[i].number==getNewNumber.value && circles[i].team==selectedTeam){
+        circles[i].number = "";
+        break;
+      }
+    }
+
+    for (var row = 0; row < table.rows.length; row++) {
+      if (table.rows[row].cells[2].innerHTML == getNewNumber.value && table.rows[row].cells[1].innerHTML == selectedCircle.team){
+        table.rows[row].cells[2].innerHTML = "";
+      } else if (table.rows[row].cells[2].innerHTML == selectedCircle.number && table.rows[row].cells[1].innerHTML == selectedCircle.team){
+        table.rows[row].cells[2].innerHTML = getNewNumber.value;
+      }
+    }
+    selectedCircle.number = getNewNumber.value;
+    update();
+  }
+}
+
 undoBtn.onclick = function () {
   if (circles.length>1){
     circles.pop();
@@ -273,7 +317,7 @@ undoBtn.onclick = function () {
 clearBtn.onclick = function () {
   ball = circles[0];
   circles = [];
-  createPlayer("Ball", "-", ball.x, ball.y);
+  createPlayer("Ball", "", ball.x, ball.y);
   update();
 };
 
@@ -332,7 +376,6 @@ canvas.addEventListener("click", function (evt) {
   };
 
 var rect = canvas.getBoundingClientRect();
-var selectedCircle = null;
 canvas.onmousedown = function(evt){
     for (var i=0; i<circles.length; i++){
       if (circles[i].x-circles[i].r < evt.clientX - rect.left && (circles[i].x+circles[i].r > evt.clientX - rect.left) && (circles[i].y-circles[i].r < evt.clientY - rect.top) && (circles[i].y+circles[i].r > evt.clientY - rect.top) && (addPlayerBtn.className == "actionBtns")){
@@ -370,13 +413,34 @@ canvas.onmouseup = function(evt){
 };
 
 function reScale(coord, value){
-  if (coord == 'x'|| (coord == 'X')){
-    const pitchLengthX = 120;
-    return (value-20)*pitchLengthX/607;
-  }
-  if (coord == 'y'|| (coord == 'Y')){
-    const pitchHeightY = 80;
-    return (value-21.36)*pitchHeightY/404.91;
+  if (selectedPitch.value == "fullPitch"){
+    if (coord == 'x'|| (coord == 'X')){
+      const pitchLengthX = 120;
+      return (value-20)*pitchLengthX/607;
+    }
+    if (coord == 'y'|| (coord == 'Y')){
+      const pitchHeightY = 80;
+      return (value-21.36)*pitchHeightY/404.91;
+    }
+
+  }else if (selectedPitch.value == "rightBox"){
+    if (coord == 'x'|| (coord == 'X')){
+      const pitchLengthX = 22.5;
+      return value*pitchLengthX/(283-16)+96.2;
+    }
+    if (coord == 'y'|| (coord == 'Y')){
+      const pitchHeightY = 49;
+      return value*pitchHeightY/(591.7-13.8)+14.65;
+    }
+  }else if (selectedPitch.value == "leftBox"){
+    if (coord == 'x'|| (coord == 'X')){
+      const pitchLengthX = 22.5;
+      return value*pitchLengthX/(283-16)-1.3;
+    }
+    if (coord == 'y'|| (coord == 'Y')){
+      const pitchHeightY = 49;
+      return value*pitchHeightY/(591.7-13.8)+14.65;
+    }
   }
 }; 
 
@@ -406,7 +470,7 @@ function createFullTable(){
 };
 
 positionsBtn.onclick = function(){
-  if (editFrame.className == "editFrame active"){
+  if (editFrameBtn.className == "editFrame active"){
     frame = circles[0].frame;
     for (var i = 0; i<circles.length; i++){
       circles[i].frame = frame;
@@ -426,7 +490,7 @@ positionsBtn.onclick = function(){
   }
 }
 
-showFrame.onclick = function() {
+showFrameBtn.onclick = function() {
   if (this.className == "showFrame active"){
     this.className = "showFrame";
     if(getFrameNumber.value == activationFrame){
@@ -451,7 +515,7 @@ showFrame.onclick = function() {
       } 
 }   
 
-editFrame.onclick = function(){
+editFrameBtn.onclick = function(){
   if (this.className == "editFrame active"){
     this.className = "editFrame";
   }else{
@@ -519,8 +583,7 @@ function exportTableToCSV(filename) {
 
     csv.push(row.join(","));
   }
-
-filename = "positionalData.csv"
+  filename = "positionalData.csv"
   // Download CSV file
   downloadCSV(csv.join("\n"), filename);
 }

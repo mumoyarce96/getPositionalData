@@ -13,6 +13,17 @@
     </div>
   </div>
 
+<div id="pitch-selection">
+    Select Pitch:
+    <div>
+      <select id="selectedPitch"> 
+      <option value="fullPitch">Full Pitch</option> 
+      <option value="leftBox">Left Box</option> 
+      <option value="rightBox">Right Box</option> 
+      </select> 
+    </div>  
+  </div> 
+
 <div id="team-name-container">
     Write team names:
     <div>
@@ -31,18 +42,22 @@
     Select an action:
     <button class="actionBtns" id="addPlayerBtn">Add Player</button>
     <button class="actionBtns" id="moveBtn">Move</button>
-    <button class="actionBtns" id="undoBtn">Delete Last</button>
+    <button id="changeNumberBtn">Change Number</button>
+    Number: <input type="number" id="getNewNumber" name="getNewNumber" min=1 max=99>
   </div>
   <div id="actions2">
-    <button class="actionBtns" id="positionsBtn">Get Positions</button>
-    <button class="actionBtns" id="clearBtn">Clear</button>
+    <button class="actionBtns" id="clearBtn">Clear Pitch</button>
+    <button class="actionBtns" id="undoBtn">Delete Last</button>
     <button class="actionBtns" id="deleteBtn">Delete Selected</button>
+  </div>
+  <div id="actions3">
+  <button class="actionBtns" id="positionsBtn">Get Positions</button>
   </div>
 
 <div id="image-loader">
 <form action='#' onsubmit="return false;">
     <input type='file' id='imgfile' />
-    <input type='button' id='btnLoad' value='Load' onclick='loadImage();' />
+    <input type='button' id='btnLoad' value='Load Image' onclick='loadImage();' />
 </form> 
 </div> 
 
@@ -54,8 +69,8 @@
 <div id="table-button-container">
     <div id="button-container"> 
       Frame: <input type="number" id="getFrameNumber" name="getFrameNumber" min=1 max=1>
-      <button class="showFrame" id="showFrame">Show Frame</button>
-      <button class="editFrame" id="editFrame">Edit Frame</button>
+      <button class="showFrame" id="showFrameBtn">Show Frame</button>
+      <button class="editFrame" id="editFrameBtn">Edit Frame</button>
     </div>
     <div id="button-container">
       <button id="clearTable">Clear Table</button>
@@ -82,9 +97,11 @@
     </div>
   </div>
 
-
-
-
+<div id="csv-loader">
+<form action='#' onsubmit="return false;">
+    <input type='file' id='csvFile' />
+</form> 
+</div> 
 <script src="tracking.js"></script>
 </body> 
 </html>
