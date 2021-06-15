@@ -453,7 +453,6 @@ function createTable(circles){
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
-    var cell6 = row.insertCell(5);
     cell1.innerHTML = circles[i].frame;
     cell2.innerHTML = circles[i].team;
     cell3.innerHTML = circles[i].number;
