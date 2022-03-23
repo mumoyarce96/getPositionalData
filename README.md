@@ -21,7 +21,7 @@ The available functionalities are:
 
 6. **Table:** The table stores the positional data.
     - **Clear table:** To delete all the data from the table click the Clear Table button.
-    - **Export to CSV:** Download the table as a .csv file named positionalData.csv.      
+    - **Export to .csv:** To download the table as a .csv file named positionalData.csv click de Export to CSV button.    
 
 Future funtionalities:
 1. Loading a .csv file containing tracking data.
