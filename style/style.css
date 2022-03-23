@@ -126,3 +126,7 @@ td{
     text-align: center;
     padding = 10px 0;
 }
+
+a:active {
+    color: '#cae3e1';
+}
