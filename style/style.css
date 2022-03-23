@@ -127,6 +127,10 @@ td{
     padding = 10px 0;
 }
 
-a:active {
-    color: '#cae3e1';
+a:visited {
+    color: #cae3e1;
+}
+
+a {
+  color: #e8e8e8;
 }
