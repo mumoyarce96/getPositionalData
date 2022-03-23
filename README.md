@@ -2,7 +2,7 @@
 
 This is a tool developed to manually get players' positional data from pictures. To use this tool please follow this [LINK](https://mumoyarce96.github.io/getPositionalData/). Keep in mind this tool is not finished yet. 
 
-The available functionalities are: 
+### The available functionalities are: 
 
 1. **Select pitch:** Full pitch, right box or left box.
 2. **Write team names:** Write the team name and press enter.
@@ -23,7 +23,7 @@ The available functionalities are:
     - **Clear table:** To delete all the data from the table click the Clear Table button.
     - **Export to .csv:** To download the table as a .csv file named positionalData.csv click de Export to CSV button.    
 
-Future funtionalities:
+### Future funtionalities:
 1. Loading a .csv file containing tracking data.
 2. Fix Show frame.
 3. Writing the name of the downloaded .csv file.  
